@@ -1,0 +1,23 @@
+package com.bhoomidarpan.entity.enums;
+
+public enum BuyRequestStatus {
+    PENDING,
+    APPROVED,
+    COUNTER_OFFERED,
+
+    BUYER_CONFIRMED,
+
+    VISIT_DATE_PROPOSED,
+    VISIT_DATE_CONFIRMED,
+
+    VISIT_CANCELLED,
+    VISIT_RESCHEDULE_PROPOSED,
+
+    REGISTRATION_CREATED,
+    REGISTERED,
+
+    REJECTED,
+    CANCELLED
+}
+
+
