@@ -3,7 +3,7 @@ import { Container, Row, Col, Navbar, Badge, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = ""https://bhoomidarpan-5.onrender.com/api";
 
 const BuyProperty = () => {
   const [properties, setProperties] = useState([]);
