@@ -45,7 +45,7 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const API_URL = "http://localhost:8080/api/auth/register";
+  const API_URL = "https://bhoomidarpan-5.onrender.com/api/auth/register";
 
   const handleChange = (e) => {
     const { name, value } = e.target;

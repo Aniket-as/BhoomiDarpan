@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Table, Badge, Button } from "react-bootstrap";
 
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = "https://bhoomidarpan-5.onrender.com/api";
 
 const AdminDisputes = () => {
   const token = localStorage.getItem("token");

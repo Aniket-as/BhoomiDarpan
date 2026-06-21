@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Navbar, Form, Button, Alert, Row, Col } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = "https://bhoomidarpan-5.onrender.com/api";
 
 const AdminAddUser = () => {
   const navigate = useNavigate();

@@ -27,7 +27,7 @@ const ChatBotPanel = ({ isOpen, onClose }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/chat",
+        "https://bhoomidarpan-5.onrender.com/api/chat",
         { message: messageToSend },
         {
           headers: {

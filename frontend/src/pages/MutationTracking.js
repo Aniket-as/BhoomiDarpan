@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Table, Badge } from "react-bootstrap";
 
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = "https://bhoomidarpan-5.onrender.com/api";
 
 const MutationTracking = () => {
   const [mutations, setMutations] = useState([]);

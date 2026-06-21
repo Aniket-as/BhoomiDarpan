@@ -11,7 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = "https://bhoomidarpan-5.onrender.com/api";
 
 const OwnerRequests = () => {
   const [requests, setRequests] = useState([]);

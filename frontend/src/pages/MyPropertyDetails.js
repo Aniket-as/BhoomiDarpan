@@ -11,8 +11,8 @@ Alert,
 Form,
 } from "react-bootstrap";
 
-const API_BASE = "http://localhost:8080/api";
-const CERT_BASE = "http://localhost:8080/api/certificates";
+const API_BASE = "https://bhoomidarpan-5.onrender.com/api";
+const CERT_BASE = "https://bhoomidarpan-5.onrender.com/api/certificates";
 
 const MyPropertyDetails = () => {
 const { propertyCode } = useParams();

@@ -14,7 +14,7 @@ ProgressBar,
 } from "react-bootstrap";
 import { toast } from "react-hot-toast";
 
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = "https://bhoomidarpan-5.onrender.com/api";
 
 function PropertyDetails() {
 const { propertyCode } = useParams();
