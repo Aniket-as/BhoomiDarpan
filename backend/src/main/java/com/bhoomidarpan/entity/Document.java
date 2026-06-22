@@ -12,12 +12,14 @@ import lombok.*;
 @Builder
 public class Document {
 
-    @Id
+     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "fileUrl")
     private String fileUrl;
 
+    @Column(name = "documentType")
     private String documentType;
 
     private boolean verified;
