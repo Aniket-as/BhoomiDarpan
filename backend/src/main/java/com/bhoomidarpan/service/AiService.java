@@ -16,7 +16,7 @@ public class AiService {
 
     public AiService(WebClient.Builder builder) {
         this.webClient = builder
-                .baseUrl("http://localhost:8000")
+                .baseUrl("https://bhoomidarpan-ai-1.onrender.com")
                 .build();
     }
 
