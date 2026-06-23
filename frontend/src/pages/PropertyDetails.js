@@ -171,9 +171,7 @@ return ( <Container className="mt-5"> <Card className="p-4 shadow-lg glass">
     <hr />
 
 
-<pre style={{ color: "white", fontSize: "12px" }}>
-  {JSON.stringify(property?.documents, null, 2)}
-</pre>
+
     {/* 📄 DOCUMENT SECTION (PREVIEW REMOVED) */}
     <h6>📄 Verified Documents</h6>
     {property?.documents?.filter(d => d.verified)?.length > 0 ? (
