@@ -212,41 +212,21 @@ const RegistrationVerification = () => {
 
           <Form.Label>Sale Deed (PDF)</Form.Label>
 
-          <Form.Control
-            type="file"
-            accept="application/pdf"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              if (validateFile(file, "Sale Deed")) {
-                setSaleDeed(file);
-                setOcrResult(null);
-              }
-            }}
-          />
+       <Form.Control
+  type="file"
+  accept="application/pdf"
+  onChange={(e) => {
+    const file = e.target.files[0];
+    if (validateFile(file, "Sale Deed")) {
+      setSaleDeed(file);
+    }
+  }}
+/>
 
          
-            {ocrLoading ? <Spinner size="sm" /> : "🔍 Run OCR Check"}
-          </Button>
+           
 
-          {ocrResult && (
-            <div className="mt-4 p-3 bg-light rounded">
-              <h6>🔎 OCR Result</h6>
-
-              <p>
-                <b>OCR Buyer:</b> {ocrBuyer || "Not Found"}
-              </p>
-
-              <p>
-                <b>OCR Seller:</b> {ocrSeller || "Not Found"}
-              </p>
-
-              {isMatch ? (
-                <Alert variant="success">✅ Names Matched</Alert>
-              ) : (
-                <Alert variant="danger">❌ Names Mismatch</Alert>
-              )}
-            </div>
-          )}
+          
 
           <hr />
 
