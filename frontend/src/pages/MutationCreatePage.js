@@ -239,22 +239,9 @@ const MutationCreatePage = () => {
                 />
               </Form.Group>
 
-              <Button
-                className="mb-3"
-                variant="info"
-                onClick={runOCRCheck}
-                disabled={ocrLoading}
-              >
-                {ocrLoading ? <Spinner size="sm" /> : "🔍 Run OCR Check"}
-              </Button>
+             
 
-              {ocrResult && (
-                <Alert variant={ocrResult.isMatch ? "success" : "danger"}>
-                  <div><strong>7/12 Owner:</strong> {ocrResult.owner1 || "Not Found"}</div>
-                  <div><strong>8A Owner:</strong> {ocrResult.owner2 || "Not Found"}</div>
-                  {ocrResult.isMatch ? "✅ Names Match" : "❌ Owner Mismatch"}
-                </Alert>
-              )}
+              
 
               <Form.Group className="mb-3">
                 <Form.Label>Remarks</Form.Label>
