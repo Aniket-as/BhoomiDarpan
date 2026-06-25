@@ -74,39 +74,6 @@ const RegistrationVerification = () => {
 
   /* ================= OCR CHECK ================= */
 
-  const runOCRCheck = async () => {
-    if (!saleDeed) {
-      toast.error("Please upload sale deed first");
-      return;
-    }
-
-    if (!validateFile(saleDeed, "Sale Deed")) return;
-
-    const formData = new FormData();
-    formData.append("document", saleDeed);
-    formData.append("documentType", "SALE_DEED");
-
-    try {
-      setOcrLoading(true);
-
-      const response = await fetch(`${API_BASE}/ocr/extract`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-      });
-
-      if (!response.ok) throw new Error("OCR processing failed");
-
-      const result = await response.json();
-      setOcrResult(result);
-
-      toast.success("OCR completed successfully");
-    } catch (err) {
-      toast.error(err.message);
-    } finally {
-      setOcrLoading(false);
-    }
-  };
 
   /* ================= VERIFY REGISTRATION ================= */
 
