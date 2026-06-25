@@ -95,24 +95,7 @@ public class RegistrationService {
            STEP 1 — OCR VALIDATION
         ===================================================== */
 
-            if (saleDeed == null || saleDeed.isEmpty()) {
-                throw new BhoomiDarpanException("Sale deed is required");
-            }
-
-            OCRResponse ocrResponse =
-                    ocrService.extractTextFromDocument(saleDeed, "SALE_DEED");
-
-            boolean isValid = ocrService.validateSaleDeed(
-                    ocrResponse.getExtractedText(),
-                    registration.getBuyer().getName(),
-                    seller.getName()
-            );
-
-            if (!isValid) {
-                throw new BhoomiDarpanException(
-                        "OCR validation failed: Buyer/Seller mismatch"
-                );
-            }
+            
 
         /* =====================================================
            STEP 2 — SAVE DOCUMENTS
