@@ -142,14 +142,57 @@ public class BuyService {
     // 🏠 GET OWNER REQUESTS
     // =====================================================
     @Transactional(readOnly = true)
-    public List<BuyRequestResponse> getBuyRequestsForOwner(Long ownerId) {
+public List<BuyRequestResponse> getBuyRequestsForOwner(Long ownerId) {
 
-        return buyRequestRepository
-                .findBuyRequestsForOwnerWithDetails(ownerId)
-                .stream()
-                .map(this::convertToResponse)   // ✅ FIX
-                .toList();
-    }
+    return buyRequestRepository
+            .findBuyRequestsForOwnerWithDetails(ownerId)
+            .stream()
+            .map(br -> {
+
+                BuyRequestResponse res = new BuyRequestResponse();
+
+                // Request
+                res.setId(br.getId());
+                res.setOfferedPrice(br.getOfferedPrice());
+                res.setStatus(br.getStatus().name());
+
+                // Property
+                res.setPropertyCode(br.getProperty().getPropertyCode());
+                res.setLocation(br.getProperty().getLocation());
+                res.setArea(br.getProperty().getArea());
+                res.setAvailableForSale(br.getProperty().isAvailableForSale());
+
+                if (br.getProperty().getLandType() != null) {
+                    res.setLandType(br.getProperty().getLandType().name());
+                }
+
+                if (br.getProperty().getStatus() != null) {
+                    res.setPropertyStatus(br.getProperty().getStatus().name());
+                }
+
+                // Buyer
+                res.setBuyerName(br.getBuyer().getName());
+                res.setBuyerEmail(br.getBuyer().getEmail());
+
+                // Owner info
+                res.setCurrentUserRole("OWNER");
+
+                br.getOwnerConsents().stream()
+                        .filter(c -> c.getOwner().getId().equals(ownerId))
+                        .findFirst()
+                        .ifPresent(c -> {
+                            res.setMyConsentId(c.getId());
+
+                            if (c.getStatus() != null) {
+                                res.setMyConsentStatus(c.getStatus().name());
+                            }
+                        });
+
+                return res;
+
+            })
+            .toList();
+}
 
     // =====================================================
     // ✅ PROCESS OWNER CONSENT
@@ -228,17 +271,7 @@ public class BuyService {
     }
 
 
-    private BuyRequestResponse convertToResponse(BuyRequest br) {
-
-        BuyRequestResponse res = new BuyRequestResponse();
-
-        res.setId(br.getId());
-        res.setPropertyCode(br.getProperty().getPropertyCode());
-        res.setBuyerName(br.getBuyer().getName()); // ✅ SAFE NOW
-        res.setStatus(br.getStatus().name());
-
-        return res;
-    }
+   
 
 
     // =====================================================
