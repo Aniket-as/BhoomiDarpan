@@ -29,8 +29,7 @@ const MutationCreatePage = () => {
 
   const [documentsUploaded, setDocumentsUploaded] = useState(false);
 
-  const [ocrResult, setOcrResult] = useState(null);
-  const [ocrLoading, setOcrLoading] = useState(false);
+  
 
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
@@ -71,66 +70,7 @@ const MutationCreatePage = () => {
 
   /* ================= OCR CHECK ================= */
 
-  const runOCRCheck = async () => {
-
-    if (!sevenTwelve || !eightA) {
-      toast.error("Upload both 7/12 and 8A first");
-      return;
-    }
-
-    try {
-      setOcrLoading(true);
-
-      const formData1 = new FormData();
-      formData1.append("document", sevenTwelve);
-      formData1.append("documentType", "SEVEN_TWELVE");
-
-      const formData2 = new FormData();
-      formData2.append("document", eightA);
-      formData2.append("documentType", "EIGHT_A");
-
-      const res1 = await fetch(`${API_BASE}/ocr/extract`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData1,
-      });
-
-      const res2 = await fetch(`${API_BASE}/ocr/extract`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData2,
-      });
-
-      if (!res1.ok || !res2.ok) {
-        throw new Error("OCR failed");
-      }
-
-      const data1 = await res1.json();
-      const data2 = await res2.json();
-
-      const owner1 = data1?.extractedFields?.ownerName;
-      const owner2 = data2?.extractedFields?.ownerName;
-
-      const expected = mutation?.buyerName;
-
-      const isMatch =
-        owner1?.toLowerCase().includes(expected.toLowerCase()) &&
-        owner2?.toLowerCase().includes(expected.toLowerCase());
-
-      setOcrResult({ owner1, owner2, isMatch });
-
-      if (isMatch) {
-        toast.success("Owner verified successfully ✅");
-      } else {
-        toast.error("Owner mismatch ❌");
-      }
-
-    } catch (err) {
-      toast.error(err.message);
-    } finally {
-      setOcrLoading(false);
-    }
-  };
+  
 
   /* ================= PROCESS DOCUMENTS ================= */
 
@@ -142,10 +82,7 @@ const MutationCreatePage = () => {
       return;
     }
 
-    if (!ocrResult || !ocrResult.isMatch) {
-      toast.error("Run OCR check and ensure names match before uploading");
-      return;
-    }
+ 
 
     try {
       setLoading(true);
@@ -285,10 +222,9 @@ const MutationCreatePage = () => {
                 <Form.Control
                   type="file"
                   accept=".pdf"
-                  onChange={(e) => {
-                    setSevenTwelve(e.target.files[0]);
-                    setOcrResult(null);
-                  }}
+                 onChange={(e) => {
+  setSevenTwelve(e.target.files[0]);
+}}
                 />
               </Form.Group>
 
@@ -298,9 +234,8 @@ const MutationCreatePage = () => {
                   type="file"
                   accept=".pdf"
                   onChange={(e) => {
-                    setEightA(e.target.files[0]);
-                    setOcrResult(null);
-                  }}
+  setEightA(e.target.files[0]);
+}}
                 />
               </Form.Group>
 
