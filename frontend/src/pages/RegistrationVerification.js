@@ -29,8 +29,7 @@ const RegistrationVerification = () => {
   const [buyerFingerprint, setBuyerFingerprint] = useState(null);
   const [sellerFingerprint, setSellerFingerprint] = useState(null);
 
-  const [ocrResult, setOcrResult] = useState(null);
-  const [ocrLoading, setOcrLoading] = useState(false);
+
 
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -94,26 +93,7 @@ const RegistrationVerification = () => {
         return;
       }
 
-      if (!ocrResult) {
-        toast.error("Run OCR check before approval");
-        return;
-      }
-
-      const ocrBuyer = ocrResult?.extractedFields?.buyerName;
-      const ocrSeller = ocrResult?.extractedFields?.sellerName;
-
-      const buyerMatch =
-        ocrBuyer?.trim().toLowerCase() ===
-        data.buyerName?.trim().toLowerCase();
-
-      const sellerMatch =
-        ocrSeller?.trim().toLowerCase() ===
-        data.sellerName?.trim().toLowerCase();
-
-      if (!buyerMatch || !sellerMatch) {
-        toast.error("Cannot approve due to OCR mismatch");
-        return;
-      }
+     
     }
 
     setSubmitting(true);
@@ -168,14 +148,7 @@ const RegistrationVerification = () => {
 
   /* ================= OCR MATCH ================= */
 
-  const ocrBuyer = ocrResult?.extractedFields?.buyerName;
-  const ocrSeller = ocrResult?.extractedFields?.sellerName;
-
-  const isMatch =
-    ocrBuyer?.trim().toLowerCase() ===
-      data.buyerName?.trim().toLowerCase() &&
-    ocrSeller?.trim().toLowerCase() ===
-      data.sellerName?.trim().toLowerCase();
+ 
 
   /* ================= UI ================= */
 
@@ -251,12 +224,7 @@ const RegistrationVerification = () => {
             }}
           />
 
-          <Button
-            className="mt-3"
-            variant="info"
-            onClick={runOCRCheck}
-            disabled={ocrLoading}
-          >
+         
             {ocrLoading ? <Spinner size="sm" /> : "🔍 Run OCR Check"}
           </Button>
 
