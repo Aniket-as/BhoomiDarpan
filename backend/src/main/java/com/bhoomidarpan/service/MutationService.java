@@ -78,37 +78,7 @@ public class MutationService {
 
             /* ================= OCR VALIDATION ================= */
 
-            OCRResponse sevenResponse =
-                    ocrService.extractTextFromDocument(
-                            request.getSevenTwelve(),
-                            "SEVEN_TWELVE"
-                    );
-
-            OCRResponse eightResponse =
-                    ocrService.extractTextFromDocument(
-                            request.getEightA(),
-                            "EIGHT_A"
-                    );
-
-            if (!sevenResponse.isSuccess() || !eightResponse.isSuccess()) {
-                throw new BhoomiDarpanException("OCR extraction failed");
-            }
-
-            String expectedOwner =
-                    mutation.getRegistration().getBuyer().getName();
-
-            boolean valid = ocrService.validateMutationDocs(
-                    sevenResponse.getExtractedText(),
-                    eightResponse.getExtractedText(),
-                    expectedOwner
-            );
-
-            if (!valid) {
-                throw new BhoomiDarpanException(
-                        "Mutation document owner mismatch with buyer name"
-                );
-            }
-
+           
             /* ================= FILE STORAGE ================= */
 
             /* ================= FILE STORAGE (CLOUDINARY) ================= */
