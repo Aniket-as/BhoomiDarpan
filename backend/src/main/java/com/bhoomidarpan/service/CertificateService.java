@@ -43,8 +43,12 @@ public class CertificateService {
             PDPageContentStream content = new PDPageContentStream(document, page);
 
             // ================= BACKGROUND =================
-            PDImageXObject bg =
-                    PDImageXObject.createFromFile("src/main/resources/background.png", document);
+           PDImageXObject bg =
+    PDImageXObject.createFromByteArray(
+        document,
+        loadImage("background.png"),
+        "background"
+    );
             content.drawImage(bg, 0, 0, 600, 800);
 
             // ================= BORDER =================
@@ -54,7 +58,11 @@ public class CertificateService {
 
             // ================= ASHOKA LOGO =================
             PDImageXObject logo =
-                    PDImageXObject.createFromFile("src/main/resources/ashoka.png", document);
+    PDImageXObject.createFromByteArray(
+        document,
+        loadImage("ashoka.png"),
+        "ashoka"
+    );
             content.drawImage(logo, 250, 700, 80, 80);
 
             // ================= TITLE =================
@@ -117,12 +125,20 @@ public class CertificateService {
 
             // ================= SIGNATURE =================
             PDImageXObject sign =
-                    PDImageXObject.createFromFile("src/main/resources/signature.png", document);
+    PDImageXObject.createFromByteArray(
+        document,
+        loadImage("signature.png"),
+        "signature"
+    );
             content.drawImage(sign, 250, 200, 120, 50);
 
             // ================= SEAL =================
             PDImageXObject seal =
-                    PDImageXObject.createFromFile("src/main/resources/seal.png", document);
+    PDImageXObject.createFromByteArray(
+        document,
+        loadImage("seal.png"),
+        "seal"
+    );
             content.drawImage(seal, 100, 180, 90, 90);
 
             // ================= CERTIFICATE INFO =================
