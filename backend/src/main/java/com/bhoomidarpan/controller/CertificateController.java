@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/certificates")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://bhoomi-darpan.vercel.app")
 public class CertificateController {
 
     private final PropertyService propertyService;
@@ -78,7 +78,7 @@ public class CertificateController {
     public ResponseEntity<byte[]> downloadQRCode(@PathVariable String propertyCode) {
 
         String verifyUrl =
-                "http://localhost:8080/api/certificates/verify/" + propertyCode;
+                "https://bhoomidarpan-5.onrender.com/api/certificates/verify/" + propertyCode;
 
         byte[] qr = qrCodeService.generateQRCode(verifyUrl);
 
