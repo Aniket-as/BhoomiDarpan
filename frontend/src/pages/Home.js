@@ -67,9 +67,7 @@ const AnimatedCounter = ({ target, suffix = "" }) => {
 
 const Home = () => {
   const { darkMode, toggleTheme } = useTheme();
-  const [qrResult, setQrResult] = useState(null);
-  const [isVerifying, setIsVerifying] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
+  
   const [blockchain, setBlockchain] = useState([
     {
       index: 45231,
@@ -94,92 +92,8 @@ const Home = () => {
     }
   ]);
 
-  const scanQR = (file) => {
-    if (!file) return;
-
-    setIsVerifying(true);
-    setQrResult(null);
-
-    setTimeout(() => {
-      const mockPropertyData = {
-        propertyId: "KA-05-7788-9966",
-        owner: "Ananya Developers Pvt Ltd",
-        registrationDate: "2025-11-20",
-        area: "2450 sq ft",
-        mutationStatus: "Verified",
-        documentHash: "0x8f4e2b1a9c7d3e5f6a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f"
-      };
-
-      const newBlock = {
-        index: blockchain[blockchain.length - 1].index + 1,
-        hash: "0x" + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
-        timestamp: new Date().toLocaleString(),
-        data: `Property: ${mockPropertyData.propertyId} | Owner: ${mockPropertyData.owner} | Registration: ${mockPropertyData.registrationDate} | Status: Blockchain Verified`,
-        shortHash: "0x" + Math.random().toString(36).substring(2, 10) + "...",
-        isNew: true
-      };
-
-      setBlockchain(prev => [...prev, newBlock]);
-      
-      setQrResult(
-        <div className="verification-result">
-          <div className="d-flex align-items-center gap-2 mb-3">
-            <i className="bi bi-check-circle-fill fs-4" style={{ color: 'var(--olive)' }}></i>
-            <h6 className="mb-0 fw-bold" style={{ color: 'var(--text-primary)' }}>Blockchain Verification Complete</h6>
-            <Badge style={{ backgroundColor: 'var(--olive)', border: 'none' }} className="ms-auto">Verified ✓</Badge>
-          </div>
-          
-          <div className="property-details mb-3">
-            <div className="detail-row">
-              <span className="detail-label">Property ID:</span>
-              <span className="detail-value fw-semibold">{mockPropertyData.propertyId}</span>
-            </div>
-            <div className="detail-row">
-              <span className="detail-label">Owner:</span>
-              <span className="detail-value">{mockPropertyData.owner}</span>
-            </div>
-            <div className="detail-row">
-              <span className="detail-label">Registration Date:</span>
-              <span className="detail-value">{mockPropertyData.registrationDate}</span>
-            </div>
-            <div className="detail-row">
-              <span className="detail-label">Area:</span>
-              <span className="detail-value">{mockPropertyData.area}</span>
-            </div>
-            <div className="detail-row">
-              <span className="detail-label">Mutation Status:</span>
-              <Badge style={{ backgroundColor: 'var(--olive)', border: 'none' }} className="px-2 py-1">{mockPropertyData.mutationStatus}</Badge>
-            </div>
-          </div>
-          
-          <div className="blockchain-tx mt-3 pt-2 border-top" style={{ borderColor: 'var(--border-color)' }}>
-            <div className="small mb-2" style={{ color: 'var(--text-secondary)' }}>
-              <i className="bi bi-link-45deg me-1"></i> Blockchain Transaction Details
-            </div>
-            <div className="tx-hash p-2 rounded font-monospace small" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
-              <span style={{ color: 'var(--text-secondary)' }}>Transaction Hash:</span> {mockPropertyData.documentHash.substring(0, 30)}...
-            </div>
-            <div className="d-flex justify-content-between mt-2">
-              <div className="small" style={{ color: 'var(--text-secondary)' }}>
-                <span>Block Height:</span> <strong style={{ color: 'var(--text-primary)' }}>{newBlock.index}</strong>
-              </div>
-              <div className="small" style={{ color: 'var(--text-secondary)' }}>
-                <span>Confirmations:</span> <Badge style={{ backgroundColor: 'var(--dark-brown)' }}>6</Badge>
-              </div>
-              <div className="small" style={{ color: 'var(--text-secondary)' }}>
-                <span>Timestamp:</span> <span style={{ color: 'var(--text-primary)' }}>{newBlock.timestamp}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-      setIsVerifying(false);
-      
-      setTimeout(() => {
-        document.getElementById('blockchain-viz')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 100);
-    }, 1800);
-  };
+  
+    
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -538,43 +452,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* QR Scan Section */}
-        <Row className="justify-content-center">
-          <Col md={8} lg={6}>
-            <div className="glass p-4 text-center">
-              <div className="mb-3">
-                <i className="bi bi-qr-code-scan fs-1" style={{ color: "var(--olive)" }}></i>
-              </div>
-              <h5 className="mb-3 fw-bold">Scan Property Certificate QR</h5>
-              <div
-                className={`dropzone ${isDragging ? 'dragging' : ''}`}
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onClick={() => document.getElementById('qr-upload').click()}
-              >
-                <i className="bi bi-cloud-upload fs-2 mb-2 d-block" style={{ color: 'var(--olive)' }}></i>
-                <p className="mb-0">Drag & drop QR code image here, or click to select</p>
-                <small className="text-muted">Supports JPG, PNG, WebP</small>
-                <Form.Control
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileUpload}
-                  disabled={isVerifying}
-                  className="d-none"
-                  id="qr-upload"
-                />
-              </div>
-              {isVerifying && (
-                <div className="mt-3 text-center">
-                  <Spinner animation="border" variant="primary" size="sm" className="me-2" />
-                  <span className="small">Verifying on blockchain...</span>
-                </div>
-              )}
-              <div className="mt-4">{qrResult}</div>
-            </div>
-          </Col>
-        </Row>
+        
 
         {/* Blockchain Ledger */}
         <Row className="mt-5" id="blockchain-viz">
