@@ -95,26 +95,7 @@ const Home = () => {
   
     
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    scanQR(file);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const file = e.dataTransfer.files[0];
-    scanQR(file);
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = () => {
-    setIsDragging(false);
-  };
+ 
 
   return (
     <>
